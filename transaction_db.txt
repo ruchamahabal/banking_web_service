@@ -1,4 +1,4 @@
-create table transaction
+create table transaction 
 (
 t_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 rec_accno VARCHAR(100),
@@ -26,3 +26,7 @@ insert into transaction (rec_accno,rec_Fname,rec_Lname,bank_name,ifsc_code,mob_n
 insert into transaction (rec_accno,rec_Fname,rec_Lname,bank_name,ifsc_code,mob_no,amt,remark,acc_no) values('552156225','Rahul','Mehta','DBS','DBS759',23548226,45000,'tour-ladhak','3521358579');
 
 insert into transaction (rec_accno,rec_Fname,rec_Lname,bank_name,ifsc_code,mob_no,amt,remark,acc_no) values('5454556554','Natasha','Rebello','IDBI','IDBI103',89566585,10000,'house rent','196548266');
+
+insert into transaction (rec_accno,rec_Fname,rec_Lname,bank_name,ifsc_code,mob_no,amt,remark,acc_no) values('5454556554','Natasha','Rebello','IDBI','IDBI103',89566585,10000,'house rent','196548266');
+
+insert into transaction (rec_accno,rec_Fname,rec_Lname,bank_name,ifsc_code,mob_no,amt,remark,acc_no) values('7485265652','Shubham','Patil','HDFC','HDFC123',54487251,8000,'tickets','196548266');
