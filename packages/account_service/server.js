@@ -7,5 +7,5 @@ app.use(express.json());
 require('./db_utils')(config);
 
 app.listen({ port: port }, () =>
-	  console.log(`🚀 Server ready at http://localhost:4000`)
+	  console.log(`🚀 Server ready at http://localhost:${port}`)
 	)
