@@ -1,0 +1,17 @@
+{
+  "name": "bank_gateway",
+  "version": "1.0.0",
+  "description": "This is the API gateway for banking microservices",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rucha Mahabal",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-express": "^2.15.1",
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "graphql": "^15.2.0"
+  }
+}
