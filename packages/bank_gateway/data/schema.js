@@ -9,6 +9,11 @@ const typeDefs = `
         accounts: [Account]
     }
 
+    type Mutation {
+        customer(customer_id: ID!, customer_name: String!, active_accounts: Float!): Customer
+        account(account_number: ID!, account_type: String!, bank_name: String!, balance: Float, customer_id: String, is_active: Boolean): Account
+    }
+
     type Customer {
         customer_id: ID,
         customer_name: String,
