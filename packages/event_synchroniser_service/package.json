@@ -1,0 +1,14 @@
+{
+  "name": "event_synchroniser_service",
+  "version": "1.0.0",
+  "description": "This is the Event Synchroniser service for synchronising \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[z\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[z\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[Cevents between customer, account and money transfer services",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rucha Mahabal",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.6.0"
+  }
+}
