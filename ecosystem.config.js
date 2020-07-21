@@ -10,7 +10,8 @@ module.exports = {
       env: {
         PORT: 3001,
         CUSTOMER_SERVICE_PORT: 4001,
-        ACCOUNT_SERVICE_PORT: 4002
+        ACCOUNT_SERVICE_PORT: 4002,
+        Q_URI: 'dummy'
       }
     },
     {
@@ -28,7 +29,15 @@ module.exports = {
       env: {
         PORT: 4002
       }
-    }
+    },
+    {
+      name: 'Event Synchronizer Service',
+      script: basepath + '/event_synchronizer/index.js',
+      watch: true,
+      env: {
+        Q_URI: 'dummy'
+      }
+    }]
   ]
 };
 
