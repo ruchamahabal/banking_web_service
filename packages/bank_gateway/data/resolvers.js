@@ -3,6 +3,7 @@ const config = require('../config');
 
 const customer_port = config.customerServiceDatabase.port;
 const account_port = config.accountServiceDatabase.port;
+const moneytransfer_port= config.moneyTransferDatabase;
 
 const hostname = `http://localhost`;
 
@@ -17,6 +18,7 @@ module.exports = {
     Query:  {
         customers: () => get(`${customer_port}/customers`),
         accounts: () => get(`${account_port}/accounts`),
+        moneytransfers: () => get (`${moneytransfer_port}/moneytransfers`)
     },
     Mutation: {
 		customer: (_, args) => {
@@ -24,6 +26,9 @@ module.exports = {
         },
         account: (_, args) => {
             post(`${account_port}/account`, args);
+        },
+        moneytransfers: (_,args) => {
+            post(`${moneytransfer_port}/moneytrans`,args);
         }
 	}
 };
