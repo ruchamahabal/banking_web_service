@@ -7,6 +7,7 @@ const typeDefs = `
     type Query {
         customers: [Customer]
         accounts: [Account]
+        moneytransfers:[MoneyTransfer]
     }
 
     type Mutation {
@@ -29,6 +30,21 @@ const typeDefs = `
         customer_id: String,
         is_active: Boolean,
         _id: String
+    }
+
+    type MoneyTransfer {
+        t_id :ID,
+        rec_accno:ID,    
+        rec_Fname :String,   
+        rec_Lname:String,    
+        bank_name:String,    
+        ifsc_code:String,    
+        mob_no:Int,       
+        amt:Float,          
+        remark:String,       
+        acc_no:Int,        
+        trans_type: String, 
+        customer_id:Int   
     }
 `;
 
