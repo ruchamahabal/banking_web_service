@@ -59,5 +59,5 @@ const MoneyTransferHandler = async({
     }
 
 module.exports = server => {
-    server.post('/moneytans', MoneyTransferHandler);
+    server.post('/moneytrans', MoneyTransferHandler);
 }
