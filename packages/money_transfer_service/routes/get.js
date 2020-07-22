@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const MoneyTransfer = mongoose.model('tMoneyTransfer');
+const MoneyTransfer = mongoose.model('tmoneytrans');
 
 const pingHandler = (_, res) => {
   res.send('Healthy');
