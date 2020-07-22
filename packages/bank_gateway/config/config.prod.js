@@ -9,7 +9,6 @@ module.exports = {
         port: ACCOUNT_SERVICE_PORT || 4002
     },
     moneyTransferDatabase:{
-    port:MONEY_TRANSFER_SERVICE_PORT  || 4003
-
+        port: MONEY_TRANSFER_SERVICE_PORT || 4003
     }
 };
