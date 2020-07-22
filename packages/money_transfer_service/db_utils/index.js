@@ -4,5 +4,5 @@ const MoneyTransferSchema  = require('./Models/MoneyTransfer');
 module.exports = config => {
     mongoose.Promise = global.Promise;
     mongoose.connect(config.mongoURI);
-    mongoose.model('tMoneyTransfer', MoneyTransferSchema,'tMoneyTransfer');
+    mongoose.model('tmoneytrans',MoneyTransferSchema,'tmoneytrans');
 }
