@@ -37,7 +37,7 @@ module.exports = {
       env: {
         Q_URI: 'dummy'
       }
-    }]
+    }
   ]
 };
 
