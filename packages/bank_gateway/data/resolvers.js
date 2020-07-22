@@ -3,7 +3,7 @@ const config = require('../config');
 
 const customer_port = config.customerServiceDatabase.port;
 const account_port = config.accountServiceDatabase.port;
-const moneytransfer_port= config.moneyTransferDatabase;
+const moneytransfer_port= config.moneyTransferDatabase.port;
 
 const hostname = `http://localhost`;
 

@@ -33,18 +33,18 @@ const typeDefs = `
     }
 
     type MoneyTransfer {
-        t_id :Number,
-        rec_accno:Number,    
+        t_id :ID,
+        rec_accno:ID,    
         rec_Fname :String,   
         rec_Lname:String,    
         bank_name:String,    
         ifsc_code:String,    
-        mob_no:Number,       
-        amt:Number,          
+        mob_no:Int,       
+        amt:Float,          
         remark:String,       
-        acc_no:Number,        
+        acc_no:Int,        
         trans_type: String, 
-        customer_id:Number   
+        customer_id:Int   
     }
 `;
 
