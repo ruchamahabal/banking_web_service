@@ -1,0 +1,9 @@
+.hero-with-right-image {
+  display: flex;
+  align-items: center;
+}
+
+.hero-image {
+  display: block;
+  max-width: 40rem;
+}
