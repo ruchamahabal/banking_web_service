@@ -18,6 +18,7 @@ module.exports = {
     Query:  {
         customers: () => get(`${customer_port}/customers`),
         accounts: () => get(`${account_port}/accounts`),
+        account:(_, {account_number}) => get(`${account_port}/account/${account_number}`),
         moneytransfers: () => get (`${moneytransfer_port}/moneytransfers`)
     },
     Mutation: {

@@ -23,12 +23,12 @@ const accountHandler = async (_, res) => {
   });
 };
 
-const singleAccountHandler = async ({ params: { id } }, res) => {
+const singleAccountHandler = async ({ params: { account_number }}, res) => {
   let account;
   let error;
 
   try {
-    account = await Account.findOne({ _id: id });
+    account = await Account.findOne({ account_number: account_number }).exec();
   } catch (err) {
     error = err;
   }
@@ -45,5 +45,5 @@ module.exports = server => {
   server
     .get('/', pingHandler)
     .get('/accounts', accountHandler)
-    .get('/account/:id', singleAccountHandler);
+    .get('/account/:account_number', singleAccountHandler);
 };
