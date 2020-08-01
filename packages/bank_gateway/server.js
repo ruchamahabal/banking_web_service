@@ -30,8 +30,105 @@ router.get('/', function(req, res) {
 });
 
 router.get('/transactions', function(req, res) {
-	res.render(view_path + 'transactions');
+	axios({
+		url: `http://localhost:${port}/graphql`,
+		method: 'POST',
+		data: {
+			query: `
+				{
+					moneytransfers {
+						transaction_id
+						from_account
+						to_account
+						amount
+					}
+				}
+			`
+		}
+	}).then((transactions) => {
+		res.render(view_path + 'transactions', {data: transactions.data.data});
+	});
 });
+
+router.get('/money_transfer', function(req, res) {
+	axios({
+		url: `http://localhost:${port}/graphql`,
+		method: 'POST',
+		data: {
+			query: `
+				{
+					accounts {
+						account_number
+						balance
+					}
+				}
+			`
+		}
+	}).then((accounts) => {
+		res.render(view_path + 'money_transfer', {data: accounts.data.data});
+	});
+});
+
+router.post('/transfer_money', urlencodedParser, async function(req, res) {
+	axios({
+		url: `http://localhost:${port}/graphql`,
+		method: 'POST',
+		data: {
+			query: `
+				mutation moneytransfer
+				(
+					$from_account: String!,
+					$to_account: String!,
+					$amount: Float!,
+					$remark: String,
+				) {
+					moneytransfer(from_account: $from_account, to_account: $to_account, amount: $amount, remark: $remark) {
+						transaction_id
+					}
+				}`,
+				variables: {
+					from_account: req.body.from_account,
+					to_account: req.body.to_account,
+					amount: parseFloat(req.body.amount),
+					remark: req.body.remark,
+				}
+		},
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	  }).then((result) => {
+		res.render(view_path + 'money_transfer', {transaction_id: result});
+	});
+});
+
+router.get('/view_transaction/:transaction_id', async function(req, res) {
+	axios({
+		url: `http://localhost:${port}/graphql`,
+		method: 'POST',
+		data: {
+			query: `
+				query {
+					moneytransfer(transaction_id: "${req.params.transaction_id.toString()}") {
+						transaction_id
+						from_account
+						to_account
+						amount
+						remark
+						transaction_time
+					}
+				} 
+			`
+		},
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	}).then((response) => {
+		res.render(view_path + 'view_transaction', {'data': response.data.data});
+	}, (error) => {
+		console.log('error while fetching transaction', error)
+	});
+});
+
 
 router.get('/accounts', async function(req, res) {
 	axios({

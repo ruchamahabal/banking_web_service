@@ -1,6 +1,8 @@
-[{"t_id":1, "rec_accno":"44585555948", "rec_Fname":"Rucha", "rec_Lname":"Mahabal", "bank_name":"HDFC", "ifsc_code":"HDFC123", "mob_no":855468624, "amt":5000, "remark":"shopping", "acc_no":"196548266", "created_at":"2020-06-21 18:48:39"},
- {"t_id":2, "rec_accno":"42568155", "rec_Fname":"Gayathri", "rec_Lname":"Iyer", "bank_name":"Bank of Maharashtra", "ifsc_code":"BOM545", "mob_no":5665952, "amt":20000, "remark":"class fees", "acc_no":"25462511", "created_at":"2020-06-21 18:54:04"},
- {"t_id":3, "rec_accno":"42568155", "rec_Fname":"Danish", "rec_Lname":"Dhanse", "bank_name":"ICICI", "ifsc_code":"ICICI485", "mob_no":54545455, "amt":1000, "remark":"pizza", "acc_no":"452421532", "created_at":"2020-06-21 18:56:10"},
- {"t_id":4, "rec_accno":"552156225", "rec_Fname":"Rahul", "rec_Lname":"Mehta", "bank_name":"DBS", "ifsc_code":"DBS759", "mob_no":23548226, "amt":45000, "remark":"tour-ladhak", "acc_no":"3521358579", "created_at":"2020-06-21 19:02:24"},
- {"t_id":5, "rec_accno":"5454556554", "rec_Fname":"Natasha", "rec_Lname":"Rebello", "bank_name":"IDBI", "ifsc_code":"IDBI103", "mob_no":89566585, "amt":10000, "remark":"house rent", "acc_no":"196548266", "created_at":"2020-06-21 19:02:27"},
- {"t_id":6, "rec_accno":"7485265652", "rec_Fname":"Shubham", "rec_Lname":"Patil", "bank_name":"HDFC", "ifsc_code":"HDFC123", "mob_no":54487251, "amt":8000, "remark":"tickets", "acc_no":"196548266", "created_at":"2020-06-21 20:12:37"}]
+[{
+    "transaction_id": 1,
+    "from_account":"ACC1",
+    "to_account": "ACC2",
+    "amt":5000,
+    "remark":"shopping",
+    "transaction_time":"2020-06-21 18:48:39"
+}]
