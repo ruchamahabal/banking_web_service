@@ -20,7 +20,8 @@ module.exports = {
       script: basepath + '/customer_service/server.js',
       watch: true,
       env: {
-        PORT: 4001
+        PORT: 4001,
+        Q_URI: 'amqp://qpdqdyhj:HETuO7YjcgSyFAlIFRUlU2fDFF2j-RhD@gull.rmq.cloudamqp.com/qpdqdyhj'
       }
     },
     {

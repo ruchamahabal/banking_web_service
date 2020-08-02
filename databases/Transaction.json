@@ -1,8 +1,8 @@
 [{
-    "transaction_id": 1,
+    "transaction_id": "TRANS1",
     "from_account":"ACC1",
     "to_account": "ACC2",
-    "amt":5000,
+    "amount":5000,
     "remark":"shopping",
     "transaction_time":"2020-06-21 18:48:39"
 }]
