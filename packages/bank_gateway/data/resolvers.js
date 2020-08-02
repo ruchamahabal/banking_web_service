@@ -4,6 +4,8 @@ const config = require('../config');
 const customer_port = config.customerServiceDatabase.port;
 const account_port = config.accountServiceDatabase.port;
 const moneytransfer_port= config.moneyTransferDatabase.port;
+const { pushToMessageQ } = require('../Q/connect');
+const { assertSchema } = require('graphql');
 
 const hostname = `http://localhost`;
 
@@ -19,7 +21,8 @@ module.exports = {
         customers: () => get(`${customer_port}/customers`),
         accounts: () => get(`${account_port}/accounts`),
         account:(_, {account_number}) => get(`${account_port}/account/${account_number}`),
-        moneytransfers: () => get (`${moneytransfer_port}/moneytransfers`)
+        moneytransfers: () => get(`${moneytransfer_port}/moneytransfers`),
+        moneytransfer: (_, {transaction_id}) => get(`${moneytransfer_port}/moneytransfer/${transaction_id}`)
     },
     Mutation: {
 		customer: (_, args) => {
@@ -28,8 +31,21 @@ module.exports = {
         account: (_, args) => {
             post(`${account_port}/account`, args);
         },
-        moneytransfers: (_,args) => {
-            post(`${moneytransfer_port}/moneytrans`,args);
-        }
+        moneytransfer: (_, args) => {
+			let result;
+			let error;
+			try {
+				result = post(`${moneytransfer_port}/transfer_money`, args);
+			} catch(err) {
+				error = err;
+            }
+            let event = {
+                'source': 'Money Transfer',
+                'event_type': 'post',
+                'event_data': JSON.stringify(args)
+            }
+            pushToMessageQ(JSON.stringify(event));
+			return result || error;
+		}
 	}
-};
+}; 

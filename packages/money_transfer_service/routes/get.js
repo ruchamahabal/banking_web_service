@@ -1,9 +1,5 @@
 const mongoose = require('mongoose');
-const MoneyTransfer = mongoose.model('tmoneytrans');
-
-const pingHandler = (_, res) => {
-  res.send('Healthy');
-};
+const MoneyTransfer = mongoose.model('tMoneyTransfer');
 
 const moneyTransferHandler = async (_, res) => {
   let moneytransfers;
@@ -23,12 +19,12 @@ const moneyTransferHandler = async (_, res) => {
   });
 };
 
-const singleMoneyTransHandler = async ({ params: { id } }, res) => {
-  let moneytrans;
+const singleTransactionHandler = async ({ params: { transaction_id } }, res) => {
+  let transaction;
   let error;
 
   try {
-    moneytrans = await MoneyTransfer.findOne({ _id: id });
+    transaction = await MoneyTransfer.findOne({ transaction_id: transaction_id });
   } catch (err) {
     error = err;
   }
@@ -37,13 +33,12 @@ const singleMoneyTransHandler = async ({ params: { id } }, res) => {
     message: 'Got response from DB',
     service: 'MoneyTransfer Servce',
     status: 200,
-    payload: moneytrans || error
+    payload: transaction || error
   });
 };
 
 module.exports = server => {
   server
-    .get('/', pingHandler)
     .get('/moneytransfers', moneyTransferHandler)
-    .get('/moneytrans/:id', singleMoneyTransHandler);
+    .get('/moneytransfer/:transaction_id', singleTransactionHandler);
 };

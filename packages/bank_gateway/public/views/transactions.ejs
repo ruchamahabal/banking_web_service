@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 
-    <title>Banking Microservices</title>
+    <title>Transactions</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,63 +35,75 @@
         </ul>
 
         <span class="navbar-text">
-          <a class="nav-link" href="#"> Login </a>
+          <a class="nav-link" href="#">Login</a>
         </span>
       </div>
     </nav>
 
     <div class="container mt-3 mb-3">
-        <table class="table table-striped tabled-bordered" style="width: 100%" id="transactions-list">
+        <table class="table table-striped table-bordered" style="width: 100%" id="transactions-list">
             <thead>
                 <tr>
                     <th>Transaction ID</th>
                     <th>From Account</th>
                     <th>To Account</th>
                     <th>Amount</th>
+                    <th>Remark</th>
+                    <th>Transaction Time</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1022</td>
-                    <td>ACC-001000</td>
-                    <td>Acc-002000</td>
-                    <td>5000</td>
-                </tr>
-                <tr>
-                    <td>1022</td>
-                    <td>ACC-001000</td>
-                    <td>Acc-002000</td>
-                    <td>5000</td>
-                </tr>
-                <tr>
-                    <td>1022</td>
-                    <td>ACC-001000</td>
-                    <td>Acc-002000</td>
-                    <td>5000</td>
-                </tr>
-                <tr>
-                    <td>1022</td>
-                    <td>ACC-001000</td>
-                    <td>Acc-002000</td>
-                    <td>5000</td>
-                </tr>
-                <tr>
-                    <td>1022</td>
-                    <td>ACC-001000</td>
-                    <td>Acc-002000</td>
-                    <td>5000</td>
-                </tr>
+              <% if (typeof data !== 'undefined') { %>
+                <% let transactions = data.moneytransfers %> 
+                <% for(let i=0; i < transactions.length; i++) { %>
+                  <tr>
+                      <td><%= transactions[i].transaction_id %></td>
+                      <td><%= transactions[i].from_account %> </td>
+                      <td><%= transactions[i].to_account %> </td>
+                      <td><%= transactions[i].amount %> </td>
+                      <td><%= transactions[i].remark %> </td>
+                      <td><%= transactions[i].transaction_time %> </td>
+                      <td><a type="button" class="btn btn-sm btn-primary text-white" href="/view_transaction/<%= transactions[i].transaction_id %> ">View</a></td>
+                  </tr>
+                <% }  %> 
+              <% } %> 
             </tbody>
 
             <tfoot>
-                <tr>
-                    <th>Transaction ID</th>
+              <tr>
+                <th>Transaction ID</th>
                     <th>From Account</th>
                     <th>To Account</th>
                     <th>Amount</th>
-                </tr>
+                    <th>Remark</th>
+                    <th>Transaction Time</th>
+                    <th></th>
+              </tr>
             </tfoot>
         </table>
+        <a id="money-transfer" class="btn btn-success mt-3" href="/money_transfer">Transfer Money</a>
+
+        <div class="modal" id="transaction-success" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Success</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <% if (typeof is_deleted !== 'undefined') {  %> 
+              <p>Account has been created successfully</p>
+            <% } %> 
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+            </div>
+          </div>
+        </div>
     </div>
 
     <!-- Optional JavaScript -->
@@ -108,5 +120,15 @@
     <script>
         $('#transactions-list').DataTable();
     </script>
+
+    <% if (typeof is_deleted !== 'undefined') { %>
+      <script>
+        $('#account-deletion-success').modal("show");
+
+        $(".modal").on("hidden.bs.modal", function () {
+          window.location = "../accounts";
+        });
+      </script>
+    <% }  %>
 </body>
 </html>

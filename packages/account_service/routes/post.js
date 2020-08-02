@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Account = mongoose.model('tAccount');
+const Event = mongoose.model('tEvent');
 
 const AccountHandler = async({
     body: {
@@ -49,6 +50,49 @@ const AccountHandler = async({
         })   
     }
 
+const EventHandler = async({
+    body: {
+        source,
+        destination,
+        event_type,
+        event_data
+    }}, res) => 
+    {
+        let event;
+        let error;
+
+        if (!source || !destination || !event_data) {
+            res.sendStatus(400).send({
+                message: 'You forgot some important key',
+                service: 'Event Synchronizer Database Service',
+                status: 400,
+                payload: null
+            })
+        };
+        
+        const newEvent = new Event({
+            datetime: Date.now(),
+            source: source,
+            destination: destination,
+            status: 'Open',
+            event_type: event_type,
+            event_data: event_data
+        });
+
+        try {
+            event = await newEvent.save();
+        } catch(err) {
+            error = err;
+        }
+
+        res.send({
+            message: 'Got response from DB',
+            service: 'Account Database Service',
+            status: 200,
+            payload: event || error
+        })   
+    }
+
 async function generate_account_number() {
     // get the last account number which is of the form ACC1
     let last_account = await Account.find().sort({ _id: -1 }).limit(1);
@@ -66,5 +110,8 @@ function get_current_customer_id() {
 }
 
 module.exports = server => {
-    server.post('/account', AccountHandler);
+    server
+        .post('/account', AccountHandler)
+        .post('/event', EventHandler);
+
 }

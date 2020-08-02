@@ -1,26 +1,19 @@
 const mongoose = require('mongoose');
-const MoneyTransfer = mongoose.model('tmoneytrans');
+const MoneyTransfer = mongoose.model('tMoneyTransfer');
+const Event = mongoose.model('tEvent');
 
 const MoneyTransferHandler = async({
     body: {
-            t_id,
-            rec_accno,    //receiver's account number
-            rec_Fname ,   //receiver's First Name
-            rec_Lname,    //receiver's last Name
-            bank_name,    //receiver's bank name
-            ifsc_code,    //receiver's ifsc code
-            mob_no,       //receiver's mobile number
-            amt,          //amount to be tranfered 
-            remark,       //any note
-            acc_no,        //sender's account number
-            trans_type, //transaction type
-            customer_id
+            from_account,    
+            to_account ,   
+            amount,    
+            remark
     }}, res) => 
     {
-        let moneytans;
+        let transaction;
         let error;
 
-        if (!rec_accno || !rec_Fname || !rec_Lname || !bank_name || !ifsc_code || !mob_no || !acc_no || !customer_id) {
+        if (!from_account || !to_account || !amount) {
             res.sendStatus(400).send({
                 message: 'You forgot some important key',
                 service: 'MoneyTransfer Database Service',
@@ -29,23 +22,18 @@ const MoneyTransferHandler = async({
             })
         };
 
+        let transaction_id = await generate_transaction_id()
         const newMoneyTransfer = new MoneyTransfer({
-            t_id:t_id,
-            rec_accno:rec_accn,    //receiver's account number
-            rec_Fname: rec_Fnam ,   //receiver's First Name
-            rec_Lname: rec_Lname,    //receiver's last Name
-            bank_name : bank_name,    //receiver's bank name
-            ifsc_code: ifsc_code,    //receiver's ifsc code
-            mob_no: mob_no,       //receiver's mobile number
-            amt:amt,          //amount to be tranfered 
-            remark: remark,       //any note
-            acc_no: acc_no,        //sender's account number
-            trans_type : trans_type, //transaction type
-            customer_id: customer_id
+            transaction_id: transaction_id,
+            from_account: from_account,    
+            to_account: to_account ,   
+            amount: amount,     
+            remark: remark,
+            transaction_time: Date.now()
         });
 
         try {
-            moneytans = await newMoneyTransfer.save();
+            transaction = await newMoneyTransfer.save();
         } catch(err) {
             error = err;
         }
@@ -54,10 +42,66 @@ const MoneyTransferHandler = async({
             message: 'Got response from DB',
             service: 'MoneyTransfer Database Service',
             status: 200,
-            payload: moneytans || error
+            payload: transaction || error
         })   
     }
 
+    const EventHandler = async({
+        body: {
+            source,
+            destination,
+            event_type,
+            event_data
+        }}, res) => 
+        {
+            let event;
+            let error;
+    
+            if (!source || !destination || !event_data) {
+                res.sendStatus(400).send({
+                    message: 'You forgot some important key',
+                    service: 'Event Synchronizer Database Service',
+                    status: 400,
+                    payload: null
+                })
+            };
+            
+            const newEvent = new Event({
+                datetime: Date.now(),
+                source: source,
+                destination: destination,
+                status: 'Open',
+                event_type: event_type,
+                event_data: event_data
+            });
+    
+            try {
+                event = await newEvent.save();
+            } catch(err) {
+                error = err;
+            }
+    
+            res.send({
+                message: 'Got response from DB',
+                service: 'Money Transfer Database Service',
+                status: 200,
+                payload: event || error
+            })   
+        }
+
+    async function generate_transaction_id() {
+        // get the last transaction number which is of the form TRANS1
+        let last_transaction = await MoneyTransfer.find().sort({ _id: -1 }).limit(1);
+        let last_transaction_id = last_transaction[0]._doc.transaction_id;
+    
+        // get the number from string i.e. extract 1 from TRANS1, increment the number and join string
+        last_transaction_id = last_transaction_id.substring(5, last_transaction_id.length);
+        cur_transaction = parseInt(last_transaction_id) + 1;
+        return 'TRANS' + cur_transaction.toString();
+    }
+
 module.exports = server => {
-    server.post('/moneytrans', MoneyTransferHandler);
-}
+    server
+        .post('/transfer_money', MoneyTransferHandler)
+        .post('/event', EventHandler);
+}       

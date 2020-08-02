@@ -8,19 +8,22 @@ const typeDefs = `
         customers: [Customer]
         accounts: [Account]
         account(account_number: String!): Account
-        moneytransfers:[MoneyTransfer]
+        moneytransfers: [MoneyTransfer]
+        moneytransfer(transaction_id: String!): MoneyTransfer
     }
 
     type Mutation {
-        customer(customer_id: ID!, customer_name: String!, active_accounts: Float!): Customer
+        customer(customer_id: ID!, customer_name: String!, active_accounts: Float!,phone_no:Int!,address:String!): Customer
         account(account_type: String!, bank_name: String!, branch: String!, ifsc_code: String!, balance: Float, customer_id: String): Account
-        moneytransfers(t_id: ID!, rec_accno: ID!, rec_Fname: String!, recLname: String!, bank_name: String!, ifsc_code: String!, mob_no: Int!, amt: Float!, remark: String!, acc_no: Int!, trans_type: String!, customer_id: Int!): MoneyTransfer
+        moneytransfer(from_account: String!, to_account: String!, amount: Float!, remark: String): MoneyTransfer
     }
 
     type Customer {
         customer_id: ID,
         customer_name: String,
         active_accounts: Float,
+        phone_no: Int,
+        address: String
         _id: String
     }
 
@@ -37,18 +40,12 @@ const typeDefs = `
     }
 
     type MoneyTransfer {
-        t_id: ID,
-        rec_accno: ID,    
-        rec_Fname: String,   
-        rec_Lname: String,    
-        bank_name: String,    
-        ifsc_code: String,    
-        mob_no: Int,       
-        amt: Float,          
-        remark: String,       
-        acc_no: Int,        
-        trans_type: String, 
-        customer_id: Int   
+        transaction_id: String,
+        from_account: String,    
+        to_account: String,   
+        amount: Float,       
+        remark: String,
+        transaction_time: String   
     }
 `;
 
