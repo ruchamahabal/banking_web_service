@@ -1,0 +1,15 @@
+[{
+  "_id": {
+    "$oid": "5f261008db28ee2dd849651d"
+  },
+  "datetime": {
+    "$timestamp": {
+      "t": 0,
+      "i": 0
+    }
+  },
+  "source": "Customer",
+  "destination": "Account",
+  "status": 1,
+  "event_data": ""
+}]

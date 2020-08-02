@@ -12,7 +12,7 @@ module.exports = {
         CUSTOMER_SERVICE_PORT: 4001,
         ACCOUNT_SERVICE_PORT: 4002,
         MONEY_TRANSFER_SERVICE_PORT: 4003,
-        Q_URI: 'dummy'
+        Q_URI: 'amqp://qpdqdyhj:HETuO7YjcgSyFAlIFRUlU2fDFF2j-RhD@gull.rmq.cloudamqp.com/qpdqdyhj'
       }
     },
     {
@@ -28,7 +28,8 @@ module.exports = {
       script: basepath + '/account_service/server.js',
       watch: true,
       env: {
-        PORT: 4002
+        PORT: 4002,
+        Q_URI: 'amqp://qpdqdyhj:HETuO7YjcgSyFAlIFRUlU2fDFF2j-RhD@gull.rmq.cloudamqp.com/qpdqdyhj'
       }
     },
     {
@@ -36,15 +37,17 @@ module.exports = {
       script: basepath + '/money_transfer_service/server.js',
       watch: true,
       env: {
-        PORT: 4003
+        PORT: 4003,
+        Q_URI: 'amqp://qpdqdyhj:HETuO7YjcgSyFAlIFRUlU2fDFF2j-RhD@gull.rmq.cloudamqp.com/qpdqdyhj'
       }
     },
     {
       name: 'Event Synchronizer Service',
-      script: basepath + '/event_synchroniser_service/index.js',
+      script: basepath + '/event_synchronizer_service/index.js',
       watch: true,
       env: {
-        Q_URI: 'dummy'
+        PORT: 4004,
+        Q_URI: 'amqp://qpdqdyhj:HETuO7YjcgSyFAlIFRUlU2fDFF2j-RhD@gull.rmq.cloudamqp.com/qpdqdyhj'
       }
     }
   ]

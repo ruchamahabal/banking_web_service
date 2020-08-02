@@ -4,6 +4,8 @@ const config = require('../config');
 const customer_port = config.customerServiceDatabase.port;
 const account_port = config.accountServiceDatabase.port;
 const moneytransfer_port= config.moneyTransferDatabase.port;
+const { pushToMessageQ } = require('../Q/connect');
+const { assertSchema } = require('graphql');
 
 const hostname = `http://localhost`;
 
@@ -29,8 +31,21 @@ module.exports = {
         account: (_, args) => {
             post(`${account_port}/account`, args);
         },
-        moneytransfer: (_,args) => {
-            post(`${moneytransfer_port}/transfer_money`,args);
-        }
+        moneytransfer: (_, args) => {
+			let result;
+			let error;
+			try {
+				result = post(`${moneytransfer_port}/transfer_money`, args);
+			} catch(err) {
+				error = err;
+            }
+            let event = {
+                'source': 'Money Transfer',
+                'event_type': 'post',
+                'event_data': JSON.stringify(args)
+            }
+            pushToMessageQ(JSON.stringify(event));
+			return result || error;
+		}
 	}
 }; 
