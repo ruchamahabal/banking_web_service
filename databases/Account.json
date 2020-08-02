@@ -2,9 +2,11 @@
   "_id": {
     "$oid": "5f02030ed2548eab1edc609e"
   },
-  "acc_number": 1,
-  "acc_type": "Savings",
+  "account_number": "ACC1",
+  "account_type": "Savings Account",
   "bank_name": "HDFC",
+  "ifsc_code": "IFSC455",
+  "branch": "Thane",
   "balance": 100000,
   "customer_id": 1,
   "is_active": true

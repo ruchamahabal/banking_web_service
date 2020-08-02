@@ -20,23 +20,20 @@
 	
 	  <div class="container collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
-		  <li class="nav-item active">
-			<a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">Account</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">Customer</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">Money Transfer</a>
-		  </li>
-		</ul>
-
-		<span class="navbar-text">
-		  <a class="nav-link" href="#">Login</a>
-		</span>
+			<li class="nav-item active">
+				<a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/accounts">Account</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/customers">Customer</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/transactions">Money Transfer</a>
+			  </li>
+			</ul>
+	
 	  </div>
 	</nav>
 
@@ -44,8 +41,8 @@
 		<div class="row justify-content-center">
 			<div class="card col-lg-6 col-md-6 shadow-sm bg-white rounded m-5 p-5">
 				<div class="col">
-                    <% if ( typeof data !== 'undefined') { %> 
-                        <% let transaction = data.moneytransfer %> 
+					<% if ( typeof data !== 'undefined') { %>
+						<% let transaction = data.moneytransfer %> 
                             <table class="table">
                                 <tbody>
                                 <tr>
@@ -63,10 +60,14 @@
                                 <tr>
                                     <th scope="row">Amount</th>
                                     <td><%= transaction.amount %> </td>
+								</tr>
+								<tr>
+                                    <th scope="row">Remark</th>
+                                    <td><%= transaction.remark %> </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Transaction Time</th>
-                                    <td><%= transaction.transaction_time %> </td>
+                                    <td><%= transaction.created_at %> </td>
                                 </tr>
                                 </tbody>
                             </table>

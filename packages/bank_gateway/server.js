@@ -41,6 +41,8 @@ router.get('/transactions', function(req, res) {
 						from_account
 						to_account
 						amount
+						remark
+						created_at
 					}
 				}
 			`
@@ -114,7 +116,7 @@ router.get('/view_transaction/:transaction_id', async function(req, res) {
 						to_account
 						amount
 						remark
-						transaction_time
+						created_at
 					}
 				} 
 			`
@@ -298,7 +300,7 @@ router.get('/update_customer/:customer_id', async function(req, res) {
 		data: {
 			query: `
 				query {
-					customer(customer_id: "${req.params.customer_id.toString()}") {
+					customer(customer_id:"${req.params.customer_id.toString()}") {
 						customer_id
 						customer_name
                         active_accounts
@@ -312,6 +314,7 @@ router.get('/update_customer/:customer_id', async function(req, res) {
 			'Content-Type': 'application/json'
 		}
 	}).then((response) => {
+		console.log("Hello world======================================================",response);
 		res.render(view_path + 'update_customer', {'data': response.data.data});
 	}, (error) => {
 		console.log('error while fetching customer', error)
@@ -326,6 +329,7 @@ router.get('/view_customer/:customer_id', async function(req, res) {
 			query: `
 				query {
 					customer(customer_id: "${req.params.customer_id.toString()}") {
+					customer_id
 					customer_name
                     active_accounts
                     phone_no
@@ -352,21 +356,20 @@ router.post('/create_customer', urlencodedParser, async function(req, res) {
 			query: `
 				mutation customer
 				(
-					$customer_id: ID,
-                    $customer_name: String,
-                    $active_accounts: Float,
-                    $phone_no: Int,
+                    $customer_name: String!,
+                    $phone_no: Float,
                     $address: String
 				) {
-					customer(customer_name : $customer_name ,active_accounts: $active_accounts, phone_no: $phone_no,address: $address) {
+					customer(customer_name : $customer_name,
+						phone_no: $phone_no,
+						address: $address) {
 						customer_id
 					}
 				}`,
 				variables: {
 					customer_name: req.body.customer_name,
-					phone_no: req.body.phone_no,
-					address: req.body.address,
-					
+					phone_no: parseFloat(req.body.phone_no),
+					address: req.body.address
 				}
 		},
 			headers: {
@@ -378,14 +381,14 @@ router.post('/create_customer', urlencodedParser, async function(req, res) {
 });
 
 router.post('/update_customer/:customer_id', urlencodedParser, async function(req, res) {
-	axios.put(`${hostname}:${account_port}/update_customer/${req.params.customer_id}`, req.body)
+	axios.put(`${hostname}:${customer_port}/update_customer/${req.params.customer_id}`, req.body)
 		.then(response => {
 			res.render(view_path + 'update_customer', {is_updated: response.data.status});
 		});
 });
 
-router.post('/delete_account/:customer_id', async function(req, res) {
-	axios.delete(`${hostname}:${account_port}/delete_account/${req.params.customer_id}`)
+router.post('/delete_customer/:customer_id', async function(req, res) {
+	axios.delete(`${hostname}:${customer_port}/delete_customer/${req.params.customer_id}`)
 		.then(response => {
 			res.render(view_path + 'customers', {is_deleted: response.data.payload.deletedCount});
 		});

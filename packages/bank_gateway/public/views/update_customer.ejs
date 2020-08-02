@@ -20,23 +20,20 @@
 	
 	  <div class="container collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
-		  <li class="nav-item active">
-			<a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">Customer</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">Customer</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">Money Transfer</a>
-		  </li>
-		</ul>
-
-		<span class="navbar-text">
-		  <a class="nav-link" href="#">Login</a>
-		</span>
+			<li class="nav-item active">
+				<a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/accounts">Account</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/customers">Customer</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/transactions">Money Transfer</a>
+			  </li>
+			</ul>
+	
 	  </div>
 	</nav>
 
@@ -46,20 +43,20 @@
 				<div class="col">
                     <% if ( typeof data !== 'undefined') { %>
                         <form action="/update_customer/<%= data.customer.customer_id %>" method="POST">
-                            <<div class="form-group">
+                            <div class="form-group">
                                 <label for="customer-id">Customer ID</label>
-                                <input id="customer-id" name="customer_id" class="form-control" type="text" maxlength="10"/>
+                                <input id="customer-id" value="<%=data.customer.customer_id%>" name="customer_id" class="form-control" type="text" maxlength="10" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="customer-name">Customer Name</label>
-                                <input id="customer-name" name="customer_name" class="form-control" type="text" maxlength="40"/>
+                                <input id="customer-name" value="<%=data.customer.customer_name%>" name="customer_name" class="form-control" type="text" maxlength="40"></div>
                                 
                             <div class="form-group">
                                 <label for="ph-no">Phone Number</label>
-                                <input id="ph-no" name="ph_no" class="form-control" type="text" maxlength="10"/>
+                                <input id="ph-no" name="phone_no" value="<%=data.customer.phone_no %>" class="form-control" type="number" maxlength="10"></div>
                             <div class="form-group">
                                 <label for="address">Address</label>
-                                <input id="address" name="customer_address" class="form-control" type="text" maxlength="30"/>
+                                <input id="address" name="address" value="<%=data.customer.address%>" class="form-control" type="text" maxlength="30"></div>
 
                             <button type="submit" id="btn-update-customer" class="btn btn-primary">Update</button>
                         </form>

@@ -20,23 +20,22 @@
 	
 	  <div class="container collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
-		  <li class="nav-item active">
-			<a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">Account</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">Customer</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">Money Transfer</a>
-		  </li>
-		</ul>
+			<li class="nav-item active">
+				<a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/accounts">Account</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/customers">Customer</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/transactions">Money Transfer</a>
+			  </li>
+			</ul>
+	
 
-		<span class="navbar-text">
-		  <a class="nav-link" href="#">Login</a>
-		</span>
+	
 	  </div>
 	</nav>
 
@@ -44,22 +43,18 @@
 		<div class="row justify-content-center">
 			<div class="card col-lg-6 col-md-6 shadow-sm bg-white rounded m-5 p-5">
 				<div class="col">
-					<form action="/create_account" method="POST">
-			
-						<div class="form-group">
-							<label for="customer-id">Customer ID</label>
-							<input id="customer-id" name="customer_id" class="form-control" type="text" maxlength="10"/>
-						</div>
+					<form action="/create_customer" method="POST">
 						<div class="form-group">
 							<label for="customer-name">Customer Name</label>
-                            <input id="customer-name" name="customer_name" class="form-control" type="text" maxlength="40"/>
-                            
+                            <input id="customer-name" name="customer_name" class="form-control" type="text" maxlength="40">
+						</div>
+						
                         <div class="form-group">
                             <label for="ph-no">Phone Number</label>
-                            <input id="ph-no" name="ph_no" class="form-control" type="text" maxlength="10"/>
+                            <input id="ph-no" name="phone_no" class="form-control" type="number" maxlength="10"></div>
                         <div class="form-group">
                             <label for="address">Address</label>
-                            <input id="address" name="customer_address" class="form-control" type="text" maxlength="30"/>
+                            <input id="address" name="address" class="form-control" type="text"></div>
 
 						<button type="submit" id="btn-create-customer" class="btn btn-primary">Create</button>
 					</form>

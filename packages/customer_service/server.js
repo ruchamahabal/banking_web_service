@@ -9,6 +9,7 @@ require('./routes/get')(app);
 require('./routes/post')(app);
 require('./routes/delete')(app);
 require('./routes/put')(app);
+require('./Q/consume')(app);
 
 app.listen({ port: port }, () => 
     console.log(`server ready at http://localhost:${port}`)

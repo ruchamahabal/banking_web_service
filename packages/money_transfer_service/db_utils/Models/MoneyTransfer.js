@@ -8,6 +8,6 @@ const MoneyTransferSchema = new Schema({
     amount: Number, 
     remark: String,
     transaction_time: String   
-});
+}, { timestamps: { createdAt: 'created_at' }});
  
 module.exports = MoneyTransferSchema;
