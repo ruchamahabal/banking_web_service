@@ -8,7 +8,7 @@ module.exports = server => {
         try {
             updated_customer = await Customer.findOneAndUpdate({customer_id: customer_id}, req.body);
         } catch(err) {
-            error = err
+            error = err   
         }
 
         res.send({

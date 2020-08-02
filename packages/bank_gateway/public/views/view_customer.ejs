@@ -34,10 +34,6 @@
 			  </li>
 			</ul>
 	
-
-		<span class="navbar-text">
-		  <a class="nav-link" href="#">Login</a>
-		</span>
 	  </div>
 	</nav>
 
@@ -45,7 +41,8 @@
 		<div class="row justify-content-center">
 			<div class="card col-lg-6 col-md-6 shadow-sm bg-white rounded m-5 p-5">
 				<div class="col">
-
+					<% if ( typeof data !== 'undefined') { %>
+                        <% let customer = data.customer %> 
                             <table class="table">
                                 <tbody>
                                 <tr>

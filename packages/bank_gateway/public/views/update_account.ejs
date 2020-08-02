@@ -34,10 +34,6 @@
         </li>
       </ul>
   
-
-		<span class="navbar-text">
-		  <a class="nav-link" href="#">Login</a>
-		</span>
 	  </div>
 	</nav>
 
@@ -61,7 +57,7 @@
                                         {
                                             let selected_account = ( data.account.account_type == i ) ? "selected" : "";
                                     %>
-                                        <option value="<%=account_options[i] %>" <%=selected_account %>><%= account_options[i] %></option>
+                                        <option value="<%=account_options[i] %>" <%=selected_account %>> <%= account_options[i] %></option>
                                     <%
                                         }
                                     %>                                    

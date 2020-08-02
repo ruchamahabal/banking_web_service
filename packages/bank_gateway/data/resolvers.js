@@ -5,7 +5,7 @@ const customer_port = config.customerServiceDatabase.port;
 const account_port = config.accountServiceDatabase.port;
 const moneytransfer_port= config.moneyTransferDatabase.port;
 const { pushToMessageQ } = require('../Q/connect');
-const { assertSchema } = require('graphql');
+
 
 const hostname = `http://localhost`;
 
@@ -19,6 +19,7 @@ const post = async (path, body) =>
 module.exports = {
     Query:  {
         customers: () => get(`${customer_port}/customers`),
+        customer:(_,{customer_id})=> get(`${customer_port}/customer/${customer_id}`),
         accounts: () => get(`${account_port}/accounts`),
         account:(_, {account_number}) => get(`${account_port}/account/${account_number}`),
         moneytransfers: () => get(`${moneytransfer_port}/moneytransfers`),

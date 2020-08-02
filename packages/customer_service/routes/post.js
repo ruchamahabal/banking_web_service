@@ -4,17 +4,15 @@ const Event = mongoose.model('tEvent');
 
 const CustomerHandler = async( 
     {body: {
-        customer_id, 
         customer_name, 
         phone_no,
         address
-        
     }}, res) => 
     {
     let customer;
     let error;
 
-    if (!customer_id || !customer_name ) {
+    if (!customer_name ) {
         res.sendStatus(400).send({
             message: 'You forgot some important key',
             service: 'Customer Database Service',
@@ -95,9 +93,9 @@ async function generate_customer_id() {
     let last_customer_number = last_customer[0]._doc.customer_id;
 
     // get the number from string i.e. extract 1 from ACC1, increment the number and join string
-    last_customer_number = last_customer_number.substring(3, last_customer_number.length);
+    last_customer_number = last_customer_number.substring(4, last_customer_number.length);
     cur_customer = parseInt(last_customer_number) + 1;
-    return 'ACC' + cur_customer.toString();
+    return 'CUST' + cur_customer.toString();
 }
 
 

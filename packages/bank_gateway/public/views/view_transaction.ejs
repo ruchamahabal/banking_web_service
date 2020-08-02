@@ -34,10 +34,6 @@
 			  </li>
 			</ul>
 	
-
-		<span class="navbar-text">
-		  <a class="nav-link" href="#">Login</a>
-		</span>
 	  </div>
 	</nav>
 
@@ -45,8 +41,8 @@
 		<div class="row justify-content-center">
 			<div class="card col-lg-6 col-md-6 shadow-sm bg-white rounded m-5 p-5">
 				<div class="col">
-                    <% if ( typeof data !== 'undefined') { %> 
-                        <% let transaction = data.moneytransfer %> 
+					<% if ( typeof data !== 'undefined') { %>
+						<% let transaction = data.moneytransfer %> 
                             <table class="table">
                                 <tbody>
                                 <tr>
@@ -64,10 +60,14 @@
                                 <tr>
                                     <th scope="row">Amount</th>
                                     <td><%= transaction.amount %> </td>
+								</tr>
+								<tr>
+                                    <th scope="row">Remark</th>
+                                    <td><%= transaction.remark %> </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Transaction Time</th>
-                                    <td><%= transaction.transaction_time %> </td>
+                                    <td><%= transaction.created_at %> </td>
                                 </tr>
                                 </tbody>
                             </table>

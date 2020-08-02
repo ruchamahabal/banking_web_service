@@ -34,9 +34,6 @@
             </li>
           </ul>
       
-        <span class="navbar-text">
-          <a class="nav-link" href="#">Login</a>
-        </span>
       </div>
     </nav>
 
@@ -63,7 +60,7 @@
                       <td><%= transactions[i].to_account %> </td>
                       <td><%= transactions[i].amount %> </td>
                       <td><%= transactions[i].remark %> </td>
-                      <td><%= transactions[i].transaction_time %> </td>
+                      <td><%= transactions[i].created_at %> </td>
                       <td><a type="button" class="btn btn-sm btn-primary text-white" href="/view_transaction/<%= transactions[i].transaction_id %> ">View</a></td>
                   </tr>
                 <% }  %> 
