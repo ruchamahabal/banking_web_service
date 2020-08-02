@@ -12,7 +12,7 @@ const typeDefs = `
     }
 
     type Mutation {
-        customer(customer_id: ID!, customer_name: String!, active_accounts: Float!): Customer
+        customer(customer_id: ID!, customer_name: String!, active_accounts: Float!,phone_no:Int!,address:String!): Customer
         account(account_type: String!, bank_name: String!, branch: String!, ifsc_code: String!, balance: Float, customer_id: String): Account
         moneytransfers(t_id: ID!, rec_accno: ID!, rec_Fname: String!, recLname: String!, bank_name: String!, ifsc_code: String!, mob_no: Int!, amt: Float!, remark: String!, acc_no: Int!, trans_type: String!, customer_id: Int!): MoneyTransfer
     }
@@ -21,6 +21,8 @@ const typeDefs = `
         customer_id: ID,
         customer_name: String,
         active_accounts: Float,
+        phone_no: Int,
+        address: String
         _id: String
     }
 

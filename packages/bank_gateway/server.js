@@ -168,4 +168,131 @@ router.post('/delete_account/:account_number', async function(req, res) {
 		});
 });
 
+router.get('/customers', async function(req, res) {
+	axios({
+		url: `http://localhost:${port}/graphql`,
+		method: 'POST',
+		data: {
+			query: `
+				{
+					customers {
+				    customer_id
+                    customer_name
+                    active_accounts
+                    phone_no
+                    address
+					}
+				}
+			`
+		}
+	}).then((customers) => {
+		res.render(view_path + 'customers', {data: customers.data.data});
+	});
+});
+
+router.get('/create_customer', function(req, res) {
+	res.render(view_path + 'create_customer');
+});
+
+router.get('/update_customer/:customer_id', async function(req, res) {
+	axios({
+		url: `http://localhost:${port}/graphql`,
+		method: 'POST',
+		data: {
+			query: `
+				query {
+					customer(customer_id: "${req.params.customer_id.toString()}") {
+						customer_id
+						customer_name
+                        active_accounts
+                        phone_no
+                        address
+					}
+				}
+			`
+		},
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	}).then((response) => {
+		res.render(view_path + 'update_customer', {'data': response.data.data});
+	}, (error) => {
+		console.log('error while fetching customer', error)
+	});
+});
+
+router.get('/view_customer/:customer_id', async function(req, res) {
+	axios({
+		url: `http://localhost:${port}/graphql`,
+		method: 'POST',
+		data: {
+			query: `
+				query {
+					customer(customer_id: "${req.params.customer_id.toString()}") {
+					customer_name
+                    active_accounts
+                    phone_no
+                    address
+					}
+				}
+			`
+		},
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	}).then((response) => { 
+		res.render(view_path + 'view_customer', {'data': response.data.data});
+	}, (error) => {
+		console.log('error while fetching customer', error)
+	});
+});
+
+router.post('/create_customer', urlencodedParser, async function(req, res) {
+	axios({
+		url: `http://localhost:${port}/graphql`,
+		method: 'POST',
+		data: {
+			query: `
+				mutation customer
+				(
+					$customer_id: ID,
+                    $customer_name: String,
+                    $active_accounts: Float,
+                    $phone_no: Int,
+                    $address: String
+				) {
+					customer(customer_name : $customer_name ,active_accounts: $active_accounts, phone_no: $phone_no,address: $address) {
+						customer_id
+					}
+				}`,
+				variables: {
+					customer_name: req.body.customer_name,
+					phone_no: req.body.phone_no,
+					address: req.body.address,
+					
+				}
+		},
+			headers: {
+			  'Content-Type': 'application/json'
+			}
+	  }).then((result) => {
+		res.render(view_path + 'create_customer', {customer_id: result});
+	});
+});
+
+router.post('/update_customer/:customer_id', urlencodedParser, async function(req, res) {
+	axios.put(`${hostname}:${account_port}/update_customer/${req.params.customer_id}`, req.body)
+		.then(response => {
+			res.render(view_path + 'update_customer', {is_updated: response.data.status});
+		});
+});
+
+router.post('/delete_account/:customer_id', async function(req, res) {
+	axios.delete(`${hostname}:${account_port}/delete_account/${req.params.customer_id}`)
+		.then(response => {
+			res.render(view_path + 'customers', {is_deleted: response.data.payload.deletedCount});
+		});
+});
+
+
 app.listen({ port: port });

@@ -23,12 +23,12 @@ const customerHandler = async (_, res) => {
   });
 };
 
-const singleCustomerHandler = async ({ params: { id } }, res) => {
+const singleCustomerHandler = async ({ params: { customer_id } }, res) => {
   let customer;
   let error;
 
   try {
-    customer = await Customer.findOne({ _id: id });
+    customer = await Customer.findOne({ customer_id: customer_id }).exec();
   } catch (err) {
     error = err;
   }
@@ -45,6 +45,6 @@ module.exports = server => {
   server
     .get('/', pingHandler)
     .get('/customers', customerHandler)
-    .get('/customer/:id', singleCustomerHandler);
+    .get('/customer/:customer_id', singleCustomerHandler);
 };
 
