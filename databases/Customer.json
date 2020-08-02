@@ -4,5 +4,7 @@
   },
   "customer_id": 1,
   "customer_name": "Rucha Mahabal",
-  "active_accounts": 0
+  "active_accounts": 0,
+  "phone_no" : 981962845,
+  "address" : "B-12, Runwal Park, Mulund West"
 }]
