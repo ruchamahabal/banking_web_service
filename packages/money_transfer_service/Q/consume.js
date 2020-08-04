@@ -17,41 +17,41 @@ require('../routes/get')(app);
 require('../routes/post')(app);
 
 module.exports = () => {
-    const q = 'money_transfer_q';
+	const q = 'money_transfer_q';
 
-    amqp.connect(uri, (err, conn) => {
-        if (err) throw new Error(err);
+	amqp.connect(uri, (err, conn) => {
+		if (err) throw new Error(err);
 
-        conn.createChannel((err, ch) => {
-            if (err) throw new Error(err);
+		conn.createChannel((err, ch) => {
+			if (err) throw new Error(err);
 
-            ch.assertQueue(q, { durable: true });
+			ch.assertQueue(q, { durable: true });
 
-            ch.consume(
-                q,
-                msg => {
-                    let event;
-                    try {
-                        event = JSON.parse(msg.content.toString());
-                    } catch(err) {
-                        console.log(err);
-                        event = msg.content.toString();
-                    }
-                    // insert message into db
-                    event['destination'] = 'Money Transfer';
-                    axios.post(`${hostname}:${port}/event`, event)
-                        .then(response => {
-                            console.log('event saved', response);
-                        });
+			ch.consume(
+				q,
+				msg => {
+					let event;
+					try {
+						event = JSON.parse(msg.content.toString());
+					} catch(err) {
+						console.log(err);
+						event = msg.content.toString();
+					}
+					// insert message into db
+					event['destination'] = 'Money Transfer';
+					axios.post(`${hostname}:${port}/event`, event)
+						.then(response => {
+							console.log('event saved', response);
+						});
 
-                    // take necessary action
+					// take necessary action
 
-                    ch.ack(msg);
-                },
-                { noAck: false }
-            )
+					ch.ack(msg);
+				},
+				{ noAck: false }
+			)
 
-            
-        });
-    });
+
+		});
+	});
 }

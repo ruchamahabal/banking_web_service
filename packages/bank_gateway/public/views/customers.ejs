@@ -1,134 +1,134 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
 
-    <title>Banking Microservices</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="container collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/accounts">Account</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/customers">Customer</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/transactions">Money Transfer</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+		<title>Banking Microservices</title>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-    <div class="container mt-3 mb-3">
-        <table class="table table-striped table-bordered" style="width: 100%" id="customer-list">
-            <thead>
-                <tr>
-                    <th>Customer ID</th>
-                    <th>Customer Name</th>
-                    <th>Phone No</th>
-                    <th>Address</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-              <% if (typeof data !== 'undefined') { %>
-                <% let customers = data.customers %> 
-                <% for(let i=0; i < customers.length; i++) { %>
-                  <tr>
-                      <td><%= customers[i].customer_id %></td>
-                      <td><%= customers[i].customer_name %> </td>
-                      <td><%= customers[i].phone_no %> </td>
-                      <td><%= customers[i].address %> </td>
-                      <td><a type="button" class="btn btn-sm btn-primary text-white" href="/view_customer/<%= customers[i].customer_id %> ">View</a></td>
-                      <td><a type="button" class="btn btn-sm btn-warning text-white" href="/update_customer/<%= customers[i].customer_id %> ">Edit</a></td>
-                      <td>
-                        <form action="/delete_customer/<%= customers[i].customer_id %>" method="post">
-                          <button type="submit" id="btn-delete-customer" class="btn btn-danger btn-sm text-white">Delete</button>
-                        </form>
-                      </td>
-                  </tr>
-                <% }  %> 
-              <% } %> 
-            </tbody>
+			<div class="container collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/accounts">Account</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/customers">Customer</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/transactions">Money Transfer</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
 
-            <tfoot>
-              <tr>
-                <th>Customer ID</th>
-                    <th>Customer Name</th>
-                    <th>Phone No</th>
-                    <th>Address</th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </tfoot>
-        </table>
-        <a id="create-customer" class="btn btn-success mt-3" href="/create_customer">Create New Customer</a>
+		<div class="container mt-3 mb-3">
+				<table class="table table-striped table-bordered" style="width: 100%" id="customer-list">
+						<thead>
+								<tr>
+										<th>Customer ID</th>
+										<th>Customer Name</th>
+										<th>Phone No</th>
+										<th>Address</th>
+										<th></th>
+										<th></th>
+										<th></th>
+								</tr>
+						</thead>
+						<tbody>
+							<% if (typeof data !== 'undefined') { %>
+								<% let customers = data.customers %>
+								<% for(let i=0; i < customers.length; i++) { %>
+									<tr>
+											<td><%= customers[i].customer_id %></td>
+											<td><%= customers[i].customer_name %> </td>
+											<td><%= customers[i].phone_no %> </td>
+											<td><%= customers[i].address %> </td>
+											<td><a type="button" class="btn btn-sm btn-primary text-white" href="/view_customer/<%= customers[i].customer_id %> ">View</a></td>
+											<td><a type="button" class="btn btn-sm btn-warning text-white" href="/update_customer/<%= customers[i].customer_id %> ">Edit</a></td>
+											<td>
+												<form action="/delete_customer/<%= customers[i].customer_id %>" method="post">
+													<button type="submit" id="btn-delete-customer" class="btn btn-danger btn-sm text-white">Delete</button>
+												</form>
+											</td>
+									</tr>
+								<% }  %>
+							<% } %>
+						</tbody>
 
-        <div class="modal" id="customer-deletion-success" tabindex="-1" role="dialog">
-          <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Success</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-            <% if (typeof is_deleted !== 'undefined') {  %> 
-              <p>Customer has been deleted successfully</p>
-            <% } %> 
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-            </div>
-            </div>
-          </div>
-        </div>
-    </div>
+						<tfoot>
+							<tr>
+								<th>Customer ID</th>
+										<th>Customer Name</th>
+										<th>Phone No</th>
+										<th>Address</th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</tfoot>
+				</table>
+				<a id="create-customer" class="btn btn-success mt-3" href="/create_customer">Create New Customer</a>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-  
-    <!-- datatable lib -->
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+				<div class="modal" id="customer-deletion-success" tabindex="-1" role="dialog">
+					<div class="modal-dialog modal-sm" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Success</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+						<% if (typeof is_deleted !== 'undefined') {  %>
+							<p>Customer has been deleted successfully</p>
+						<% } %>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+						</div>
+						</div>
+					</div>
+				</div>
+		</div>
 
-    <!-- datatable script -->
-    <script>
-        $('#customer-list').DataTable();
-    </script>
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-    <% if (typeof is_deleted !== 'undefined') { %>
-      <script>
-        $('#customer-deletion-success').modal("show");
+		<!-- datatable lib -->
+		<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
-        $(".modal").on("hidden.bs.modal", function () {
-          window.location = "../customers";
-        });
-      </script>
-    <% }  %>
+		<!-- datatable script -->
+		<script>
+				$('#customer-list').DataTable();
+		</script>
+
+		<% if (typeof is_deleted !== 'undefined') { %>
+			<script>
+				$('#customer-deletion-success').modal("show");
+
+				$(".modal").on("hidden.bs.modal", function () {
+					window.location = "../customers";
+				});
+			</script>
+		<% }  %>
 </body>
 </html>

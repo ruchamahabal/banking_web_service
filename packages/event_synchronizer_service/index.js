@@ -10,6 +10,6 @@ require('./routes/post')(app);
 
 require('./Q/consume')(app);
 
-app.listen({ port: port }, () => 
+app.listen({ port: port }, () =>
 	console.log(`server ready at http://localhost:${port}`)
 )

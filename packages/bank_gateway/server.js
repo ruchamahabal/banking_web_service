@@ -18,7 +18,7 @@ app.set("view engine", "ejs");
 const view_path = path.join(__dirname, '/public/views/');
 const static_files = path.join(__dirname, '/public/');
 
-/* serve get routes for web pages */ 
+/* serve get routes for web pages */
 let router = express.Router();
 app.use('/', router);
 app.use(express.static(static_files));
@@ -118,7 +118,7 @@ router.get('/view_transaction/:transaction_id', async function(req, res) {
 						remark
 						created_at
 					}
-				} 
+				}
 			`
 		},
 		headers: {
@@ -212,7 +212,7 @@ router.get('/view_account/:account_number', async function(req, res) {
 		headers: {
 			'Content-Type': 'application/json'
 		}
-	}).then((response) => { 
+	}).then((response) => {
 		res.render(view_path + 'view_account', {'data': response.data.data});
 	}, (error) => {
 		console.log('error while fetching account', error)
@@ -275,11 +275,11 @@ router.get('/customers', async function(req, res) {
 			query: `
 				{
 					customers {
-				    customer_id
-                    customer_name
-                    active_accounts
-                    phone_no
-                    address
+					customer_id
+					customer_name
+					active_accounts
+					phone_no
+					address
 					}
 				}
 			`
@@ -303,9 +303,9 @@ router.get('/update_customer/:customer_id', async function(req, res) {
 					customer(customer_id:"${req.params.customer_id.toString()}") {
 						customer_id
 						customer_name
-                        active_accounts
-                        phone_no
-                        address
+						active_accounts
+						phone_no
+						address
 					}
 				}
 			`
@@ -331,9 +331,9 @@ router.get('/view_customer/:customer_id', async function(req, res) {
 					customer(customer_id: "${req.params.customer_id.toString()}") {
 					customer_id
 					customer_name
-                    active_accounts
-                    phone_no
-                    address
+					active_accounts
+					phone_no
+					address
 					}
 				}
 			`
@@ -341,7 +341,7 @@ router.get('/view_customer/:customer_id', async function(req, res) {
 		headers: {
 			'Content-Type': 'application/json'
 		}
-	}).then((response) => { 
+	}).then((response) => {
 		res.render(view_path + 'view_customer', {'data': response.data.data});
 	}, (error) => {
 		console.log('error while fetching customer', error)
@@ -356,9 +356,9 @@ router.post('/create_customer', urlencodedParser, async function(req, res) {
 			query: `
 				mutation customer
 				(
-                    $customer_name: String!,
-                    $phone_no: Float,
-                    $address: String
+					$customer_name: String!,
+					$phone_no: Float,
+					$address: String
 				) {
 					customer(customer_name : $customer_name,
 						phone_no: $phone_no,
