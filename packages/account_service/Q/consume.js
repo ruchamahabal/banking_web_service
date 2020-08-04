@@ -4,13 +4,11 @@ const { q: {uri} } = config;
 const { port } = config;
 
 const express = require('express');
-const bodyParser = require('body-parser');
 const axios = require('axios');
 const app = express();
 app.use(express.json());
 
 const hostname = `http://localhost`;
-let urlencodedParser = bodyParser.urlencoded({extended: false});
 
 require('../db_utils')(config);
 require('../routes/get')(app);
@@ -50,7 +48,7 @@ module.exports = () => {
 					let to_account = data.to_account;
 					let amount = data.amount;
 
-					const change_balance = async () => {
+					const update_balance = async () => {
 						let source_balance = (await axios.get(`${hostname}:${port}/account/${from_account}`)).data.payload.balance;
 						let destination_balance = (await axios.get(`${hostname}:${port}/account/${to_account}`)).data.payload.balance;
 						source_balance = parseFloat(source_balance) - parseFloat(amount);
@@ -58,18 +56,16 @@ module.exports = () => {
 
 						axios.put(`${hostname}:${port}/update_account/${from_account}`, {balance: source_balance})
 						.then(response => {
-
-						   console.log('source account updated', response);
+							console.log('source account updated', response);
 						});
 
 						axios.put(`${hostname}:${port}/update_account/${to_account}`, {balance: destination_balance})
 						.then(response => {
 						   console.log('destination account updated', response);
 						});
-
 					}
 
-					change_balance();
+					update_balance();
 					ch.ack(msg);
 				},
 				{ noAck: false }
