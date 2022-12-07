@@ -12,9 +12,9 @@
     "amqplib": "^0.6.0",
     "apollo-server-express": "^2.16.1",
     "axios": "^0.21.1",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "ejs": "^3.1.3",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "graphql": "^15.3.0",
     "graphql-request": "^2.0.0"
   }
